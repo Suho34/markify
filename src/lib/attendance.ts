@@ -94,19 +94,23 @@ export const matchStudent = (descriptor: Float32Array): Student | null => {
   if (students.length === 0) return null;
 
   let bestMatch: Student | null = null;
-  let minDistance = 0.65; // Relaxed threshold for easier matching
+  let minDistance = 0.7; // Standard "snap" threshold for webcams
 
-  students.forEach(student => {
-    // Euclidean distance
-    const distance = Math.sqrt(
-      student.descriptor.reduce((acc, val, i) => acc + Math.pow(val - descriptor[i], 2), 0)
-    );
+  for (const student of students) {
+    let sum = 0;
+    const sDesc = student.descriptor;
+    // Manual loop is faster than reduce/pow for tight biometric matching
+    for (let i = 0; i < 128; i++) {
+      const diff = sDesc[i] - descriptor[i];
+      sum += diff * diff;
+    }
+    const distance = Math.sqrt(sum);
 
     if (distance < minDistance) {
       minDistance = distance;
       bestMatch = student;
     }
-  });
+  }
 
   return bestMatch;
 };

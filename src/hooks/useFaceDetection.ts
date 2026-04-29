@@ -58,25 +58,27 @@ export const useFaceDetection = () => {
   const handleVideoOnPlay = () => {
     if (!videoRef.current || !canvasRef.current || !isLoaded || !faceapi) return;
     
-    setIsDetecting(true);
-    const interval = setInterval(async () => {
-      if (!videoRef.current || !canvasRef.current || !isLoaded || !faceapi || videoRef.current.readyState !== 4) return;
+    let active = true;
+    
+    const runInference = async () => {
+      if (!active || !videoRef.current || !canvasRef.current || !isLoaded || !faceapi || videoRef.current.readyState !== 4) {
+        if (active) setTimeout(runInference, 100);
+        return;
+      }
 
       try {
         const video = videoRef.current;
         const displaySize = { width: video.videoWidth, height: video.videoHeight };
-        if (displaySize.width === 0 || displaySize.height === 0) return;
-
-        // Detect all faces to compare sizes
+        
+        // Detect with balanced inputSize (160) for better range + speed
         const detections = await faceapi.detectAllFaces(
           video,
-          new faceapi.TinyFaceDetectorOptions({ inputSize: 128, scoreThreshold: 0.5 })
+          new faceapi.TinyFaceDetectorOptions({ inputSize: 160, scoreThreshold: 0.5 })
         )
         .withFaceLandmarks()
         .withFaceDescriptors();
 
         if (detections.length > 0) {
-          // Find the largest face (closest to camera)
           const largestFace = detections.reduce((prev: any, current: any) => {
             const prevArea = prev.detection.box.width * prev.detection.box.height;
             const currentArea = current.detection.box.width * current.detection.box.height;
@@ -86,7 +88,6 @@ export const useFaceDetection = () => {
           setFaceDetected(true);
           setFaceDescriptor(largestFace.descriptor);
 
-          // Draw ONLY the largest face for visual feedback
           faceapi.matchDimensions(canvasRef.current, displaySize);
           const resizedDetection = faceapi.resizeResults(largestFace, displaySize);
           const ctx = canvasRef.current.getContext('2d');
@@ -97,17 +98,22 @@ export const useFaceDetection = () => {
         } else {
           setFaceDetected(false);
           setFaceDescriptor(null);
-          
           const ctx = canvasRef.current.getContext('2d');
           if (ctx) ctx.clearRect(0, 0, displaySize.width, displaySize.height);
         }
       } catch (err) {
-        // Silent fail
+        // Inference fail
       }
-    }, 50);
+
+      // Schedule next run ONLY after current one is done
+      if (active) setTimeout(runInference, 40);
+    };
+
+    setIsDetecting(true);
+    runInference();
 
     return () => {
-      clearInterval(interval);
+      active = false;
       setIsDetecting(false);
     };
   };
