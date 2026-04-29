@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ⚡️ MARKIFY INTELLIGENCE
 
-## Getting Started
+**Next-Generation Biometric Attendance & Behavioral Analytics.**
 
-First, run the development server:
+Markify is a high-fidelity, enterprise-grade attendance intelligence system that replaces manual tracking with real-time AI face recognition. Inspired by the design aesthetics of Nike, Linear, and Vercel, Markify provides a premium, low-latency experience for modern institutions.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Core Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 1. Biometric Registry
+Enroll students instantly using browser-based face-api.js. Each student is stored with a unique 128-float biometric descriptor, ensuring secure and accurate identification without storing actual images.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 2. Instant Auto-Identification
+The scanner (`/attendance`) uses high-frequency AI inference (50ms intervals) to automatically identify registered students. No manual entry required—just look and mark.
 
-## Learn More
+### 3. System Control Dashboard
+A high-density analytics hub providing:
+- **Attendance Mix**: Real-time distribution of On-Time vs. Late arrivals.
+- **Behavioral Insights**: AI-generated radar notifications identifying late-coming patterns and students at risk of chronic absenteeism.
+- **Session Management**: Dynamic cutoff times and session-specific tracking.
 
-To learn more about Next.js, take a look at the following resources:
+### 4. Smart Enrollment Prompt
+Integrated AI suggestions that detect unrecognized faces and proactively prompt new students to enroll, ensuring 100% registry coverage over time.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🛠 Tech Stack
 
-## Deploy on Vercel
+- **Framework**: [Next.js 14 (App Router)](https://nextjs.org/)
+- **AI Engine**: [@vladmandic/face-api](https://github.com/vladmandic/face-api) (TensorFlow.js)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Analytics**: [Recharts](https://recharts.org/)
+- **Styling**: Vanilla CSS with custom Nike-inspired Design Tokens (`globals.css`)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📦 Installation & Setup
+
+1. **Clone & Install**
+   ```bash
+   npm install
+   ```
+
+2. **AI Models**
+   Ensure the `public/models` directory contains the required face-api.js weights:
+   - `tiny_face_detector_model`
+   - `face_landmark_68_model`
+   - `face_recognition_model`
+
+3. **Development**
+   ```bash
+   npm run dev
+   ```
+
+---
+
+## 🎨 Design Philosophy
+
+Markify adheres to a **"Brutal-Premium"** aesthetic:
+- **Surface & Depth**: High-contrast glassmorphism with subtle borders and deep shadows.
+- **Typography**: Heavy, tracking-tight headings (Inter/Nike style) paired with monospace utility labels.
+- **Interaction**: Micro-animations on hover and active states using spring physics.
+- **Color Constraint**: Primarily Monochrome (Nike Black/White) with high-saturation status signals (Nike Green/Red).
+
+---
+
+## 🔒 Security & Privacy
+
+Markify is **Local-First**. All biometric processing happens in the user's browser. Biometric descriptors are stored in `localStorage` and are never transmitted to an external server in the current implementation.
+
+---
+
+## 📄 License
+
+Proprietary. Developed for Advanced Institutional Management. © 2026 Markify Systems.

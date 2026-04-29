@@ -1,65 +1,49 @@
-import Image from "next/image";
+import Link from 'next/link';
+import { Camera, LayoutDashboard, BrainCircuit } from 'lucide-react';
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <main className="min-h-screen flex flex-col items-center justify-center p-6 text-center">
+      {/* Background Glow */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-nike-green/10 blur-[120px] rounded-full" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-nike-red/10 blur-[120px] rounded-full" />
+      </div>
+
+      <div className="max-w-4xl mx-auto space-y-8">
+        <div className="space-y-4 animate-in fade-in slide-in-from-bottom-8 duration-700">
+
+          <h1 className="text-7xl md:text-9xl nike-heading leading-[0.85] tracking-tighter">
+            MARKIFY
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+
+          <p className="text-lg md:text-xl text-nike-gray max-w-2xl mx-auto font-bold uppercase tracking-widest opacity-80">
+            Intelligent <span className="text-nike-white">Recognition</span> & Behavioral <span className="text-nike-white">Intel</span>
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+
+        <div className="flex flex-col md:flex-row gap-4 justify-center items-center pt-8 animate-in fade-in zoom-in-95 duration-1000 delay-200">
+          <Link
+            href="/attendance"
+            className="nike-button w-full md:w-auto px-8 py-4 bg-nike-white text-nike-black flex items-center justify-center gap-2 hover:bg-nike-gray"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <Camera size={20} />
+            MARK ATTENDANCE
+          </Link>
+
+          <Link
+            href="/dashboard"
+            className="nike-button w-full md:w-auto px-8 py-4 bg-nike-dark text-nike-white border border-white/10 flex items-center justify-center gap-2 hover:bg-white/5"
           >
-            Documentation
-          </a>
+            <LayoutDashboard size={20} />
+            TEACHER DASHBOARD
+          </Link>
         </div>
-      </main>
-    </div>
+      </div>
+
+      <div className="absolute bottom-8 text-nike-gray text-[10px] font-black tracking-[0.4em] uppercase opacity-40">
+        MARKIFY SYSTEMS © 2026 / ADVANCED RECOGNITION
+      </div>
+    </main>
   );
 }
